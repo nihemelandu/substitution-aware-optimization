@@ -51,7 +51,10 @@ This project focused on a **proof-of-concept scope**. Potential extensions inclu
    [Link](https://www.mdpi.com/journal/…/2023)  
 
 2. **Elasticity-Based Demand Forecasting and Price Optimization for Online Retail** (arXiv, 2021)  
-   [Link](https://arxiv.org/abs/2105.03997)  
+   [Link](https://arxiv.org/abs/2105.03997)
+
+3. **Guardrailed Elasticity Pricing: A Churn‑Aware Forecasting Playbook for Subscription Strategy** (arXiv, 2025)  
+   https://arxiv.org/abs/2512.20932 :contentReference[oaicite:0]{index=0}  
 
 ---
 
