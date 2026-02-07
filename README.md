@@ -1,75 +1,105 @@
+# Substitution-Aware Inventory Optimization
+
+> Improving inventory decisions by modeling stockout-based demand substitution
+
+## Overview
+
+Traditional inventory optimization forecasts demand for each SKU independently, ignoring the reality that when products stock out, customer demand shifts to substitutes. This leads to:
+
+- **Overestimated lost sales** for frequently stocked-out items
+- **Biased demand forecasts** that don't reflect true primary demand
+- **Suboptimal inventory allocation** across product categories
+
+This project improves inventory optimization by estimating substitution flows between products and generating substitution-aware demand forecasts.
+
+**Core Idea:** Better demand forecasts (accounting for substitution) → Better inventory decisions → Lower costs + Higher service levels
 
 ---
 
-## 🧮 Methodology
+## Problem Statement
 
-### 1️⃣ Data Preparation
-- Selected public e-commerce dataset with multiple substitutable SKUs  
-- Aggregated sales and price history  
-- Engineered features including promotions, seasonality, and SKU hierarchy  
+When SKU A stocks out:
+- Some customers buy SKU B instead (substitution)
+- Some customers leave without buying (lost sales)
+- Historical sales data shows: Sales_A ↓ and Sales_B ↑
 
-### 2️⃣ Demand Forecasting
-- Baseline model: independent-SKU regression model  
-- Substitution-aware model: includes **cross-price terms** to capture redistribution of demand  
-- Evaluated using RMSE and MAPE  
+**Traditional approach:**
+```
+Forecast each SKU independently from historical sales
+→ Forecasts confuse primary demand with substitution effects
+→ Inventory optimization uses biased inputs
+```
 
-### 3️⃣ Elasticity Modeling
-- Estimated **own-price elasticity** for each SKU  
-- Estimated **cross-price elasticity** between substitutable SKUs  
-- Visualized demand shifts in response to price changes  
+**Our approach:**
+```
+1. Estimate substitution matrix from stockout events
+2. Separate primary demand from substitution flows
+3. Generate substitution-aware forecasts
+4. Use improved forecasts in inventory optimization
+```
 
-### 4️⃣ Price Optimization
-- Objective: maximize **portfolio-level revenue**  
-- Constraints: realistic price bounds, minimal revenue loss on core SKUs  
-- Compared revenue under baseline pricing vs substitution-aware optimized pricing  
-
----
-
-## 📊 Key Results
-
-- **Forecasting Improvement:** Substitution-aware model reduced RMSE by ~12% compared to independent-SKU baseline  
-- **Elasticity Insights:** Demonstrated strong negative own-price elasticity and positive cross-price elasticity between substitutes  
-- **Revenue Impact:** Optimized category-level pricing increased simulated revenue by ~8–10%  
+📄 [Full problem statement](docs/PROBLEM_STATEMENT.md)
 
 ---
 
-## 🔮 Future Work
-
-This project focused on a **proof-of-concept scope**. Potential extensions include:
-
-- Multi-period inventory-aware price optimization  
-- Multi-category substitution effects  
-- Integration of real-time promotions and dynamic pricing  
-- Experimental A/B testing on actual e-commerce platforms  
-- Applying **paper #1** ("Elasticity-Based Demand Forecasting and Price Optimization for Online Retail (2021, arXiv)") for advanced elasticity modeling  
-
----
-
-## 📚 References
-
-1. **Supply Chain Demand Forecasting and Price Optimisation Models with Substitution Effect** (MDPI, 2023)  
-   [Link](https://www.mdpi.com/journal/…/2023)  
-
-2. **Elasticity-Based Demand Forecasting and Price Optimization for Online Retail** (arXiv, 2021)  
-   [Link](https://arxiv.org/abs/2105.03997)
-
-3. **Guardrailed Elasticity Pricing: A Churn‑Aware Forecasting Playbook for Subscription Strategy** (arXiv, 2025)  
-   https://arxiv.org/abs/2512.20932 :contentReference[oaicite:0]{index=0}  
-
----
-
-## 🛠️ Technology Stack
-
-- **Data Processing:** pandas, numpy  
-- **Machine Learning:** scikit-learn, statsmodels  
-- **Optimization:** scipy.optimize, PuLP  
-- **Visualization:** matplotlib, seaborn, plotly  
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
+## Quick Start
 ```bash
-Python 3.8+
+# Clone repository
+git clone https://github.com/yourusername/substitution-inventory.git
+cd substitution-inventory
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Run example notebook
+jupyter notebook notebooks/01_data_exploration.ipynb
+```
+
+---
+
+## Project Status
+
+🚧 **Work in Progress** - Currently in development phase
+
+**Completed:**
+- [ ] Data collection and preprocessing
+- [ ] Substitution matrix estimation
+- [ ] Primary demand forecasting
+- [ ] Effective demand calculation
+- [ ] Optimization integration
+- [ ] Validation and testing
+
+📅 README will be updated with detailed documentation once core functionality is complete.
+
+---
+
+## Repository Structure
+```
+substitution-inventory/
+├── data/                  # Transaction and inventory data
+├── src/                   # Source code
+│   ├── substitution/      # Substitution estimation
+│   ├── forecasting/       # Demand models
+│   └── optimization/      # Inventory optimization
+├── notebooks/             # Analysis and examples
+├── docs/                  # Documentation
+└── tests/                 # Unit tests
+```
+
+---
+
+## Key References
+
+- Netessine, S., & Rudi, N. (2003). Centralized and Competitive Inventory Models with Demand Substitution. *Operations Research*, 51(2), 329-335.
+
+---
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+## Contact
+
+Questions or suggestions? Open an [issue](https://github.com/yourusername/substitution-inventory/issues).
